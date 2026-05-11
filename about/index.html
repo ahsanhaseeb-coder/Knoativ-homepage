@@ -1,0 +1,2745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — KNOATIV / Knowledge, acted upon.</title>
+<meta name="description" content="KNOATIV is a retail intelligence house. Knowledge, acted upon — not pitched. Operating across 18 markets, shipping working systems instead of strategy decks.">
+
+<!-- Fragment Mono for monospace utility, Unica One for display -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unica+One&family=Fragment+Mono&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================================
+   KNOATIV — ABOUT
+   Sister page to /. Inherits the operator-grade visual system, adds the
+   geography board and the principles ledger as departures.
+   ============================================================================ */
+
+:root {
+  /* Colors — locked brand */
+  --plum: #1A1240;
+  --plum-deep: #120A30;
+  --plum-soft: #221852;
+  --violet: #5B3DFF;
+  --violet-bright: #7B5FFF;
+  --cream: #F5F2EC;
+  --cream-warm: #EFEBE2;
+  --ink: #1A1240;
+  --line: rgba(26, 18, 64, 0.12);
+  --line-strong: rgba(26, 18, 64, 0.32);
+  --line-dark: rgba(245, 242, 236, 0.14);
+  --line-dark-strong: rgba(245, 242, 236, 0.32);
+
+  /* Custom easing — no defaults */
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-power: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Layout */
+  --max: 1640px;
+  --gutter: clamp(20px, 4vw, 56px);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+::selection {
+  background: var(--violet);
+  color: var(--cream);
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--violet); }
+
+html {
+  background: var(--cream);
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  letter-spacing: -0.005em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  cursor: none;
+  overflow-x: hidden;
+}
+
+a, button { cursor: none; color: inherit; text-decoration: none; }
+
+/* ============================================================================
+   CUSTOM CURSOR — same operator detail as the homepage
+   ============================================================================ */
+.cursor {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: var(--violet);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  transition: transform 200ms var(--ease-quart), background 200ms ease, width 200ms var(--ease-quart), height 200ms var(--ease-quart);
+  transform: translate(-50%, -50%);
+  mix-blend-mode: difference;
+  will-change: transform;
+}
+
+.cursor.hovering {
+  width: 56px;
+  height: 56px;
+  background: transparent;
+  border: 1px solid var(--violet);
+  mix-blend-mode: normal;
+}
+
+.cursor-trail {
+  position: fixed;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--violet);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  opacity: 0.4;
+  transition: width 400ms var(--ease-quart), height 400ms var(--ease-quart), opacity 400ms ease;
+  will-change: transform;
+}
+
+@media (max-width: 1024px) {
+  body, a, button { cursor: auto; }
+  .cursor, .cursor-trail { display: none; }
+}
+
+/* ============================================================================
+   TYPOGRAPHY — utility classes (same scale system as the homepage)
+   ============================================================================ */
+.t-mono {
+  font-family: 'Fragment Mono', monospace;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.t-display {
+  font-family: 'Unica One', sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 0.86;
+}
+
+/* ============================================================================
+   GLOBAL NAV — operator bar (cloned from / with About marked active)
+   ============================================================================ */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  padding: 20px var(--gutter);
+  gap: 48px;
+  background: rgba(245, 242, 236, 0);
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  border-bottom: 1px solid transparent;
+  transition: background 400ms var(--ease-quart), backdrop-filter 400ms var(--ease-quart), border-color 400ms var(--ease-quart), padding 400ms var(--ease-quart);
+}
+
+.nav.scrolled {
+  background: rgba(245, 242, 236, 0.85);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom-color: var(--line);
+  padding: 14px var(--gutter);
+}
+
+.nav-mark {
+  font-family: 'Unica One', sans-serif;
+  font-size: 16px;
+  letter-spacing: 0.12em;
+  color: var(--plum);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-mark .dot {
+  width: 8px;
+  height: 8px;
+  background: var(--violet);
+  border-radius: 50%;
+  animation: pulse 2.4s var(--ease-quart) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(0.6); opacity: 0.4; }
+}
+
+.nav-links {
+  display: flex;
+  justify-content: center;
+  gap: 36px;
+  align-items: center;
+}
+
+.nav-link {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  position: relative;
+  padding: 8px 0;
+  transition: color 250ms var(--ease-quart);
+}
+
+.nav-link .num {
+  font-family: 'Fragment Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--violet);
+  opacity: 0.7;
+}
+
+.nav-link .label {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--plum);
+  letter-spacing: -0.005em;
+  position: relative;
+}
+
+.nav-link .label::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 1px;
+  background: var(--violet);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 350ms var(--ease-quart);
+}
+
+.nav-link:hover .label::after,
+.nav-link.active .label::after {
+  transform: scaleX(1);
+}
+
+.nav-link.active .num { opacity: 1; }
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-status {
+  font-family: 'Fragment Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--plum);
+  opacity: 0.55;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-status::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: #00C46F;
+  border-radius: 50%;
+  animation: pulse 1.6s var(--ease-quart) infinite;
+  flex-shrink: 0;
+}
+
+.nav-cta {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--cream);
+  background: var(--plum);
+  letter-spacing: -0.005em;
+  border: 1px solid var(--plum);
+  padding: 10px 18px;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 300ms var(--ease-quart), color 300ms var(--ease-quart), border-color 300ms var(--ease-quart);
+}
+
+.nav-cta:hover {
+  background: var(--violet);
+  border-color: var(--violet);
+  color: var(--cream);
+}
+
+.nav-cta::after {
+  content: '→';
+  transition: transform 300ms var(--ease-quart);
+}
+
+.nav-cta:hover::after { transform: translateX(3px); }
+
+@media (max-width: 900px) {
+  .nav { grid-template-columns: auto auto; }
+  .nav-links { display: none; }
+  .nav-status { display: none; }
+}
+
+/* ============================================================================
+   HERO — etymology takes the viewport
+   "Knowledge, / acted upon."
+   ============================================================================ */
+.hero {
+  min-height: 100vh;
+  background: var(--cream);
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto;
+  padding: 140px var(--gutter) var(--gutter);
+  gap: 0;
+}
+
+.hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-family: 'Fragment Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--plum);
+  opacity: 0;
+  animation: fadeIn 1s ease forwards;
+}
+
+.hero-eyebrow::before {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background: var(--violet);
+}
+
+.hero-eyebrow .accent {
+  color: var(--violet);
+  opacity: 1;
+}
+
+.hero-eyebrow .opacity-half {
+  opacity: 0.55;
+}
+
+.hero-headline {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 60px 0 40px;
+}
+
+.hero-line {
+  font-family: 'Unica One', sans-serif;
+  font-size: clamp(80px, 18vw, 280px);
+  line-height: 0.82;
+  letter-spacing: -0.02em;
+  color: var(--plum);
+  display: flex;
+  align-items: baseline;
+  gap: 0.05em;
+  overflow: hidden;
+  position: relative;
+}
+
+.hero-line .word {
+  display: inline-block;
+  transform: translateY(110%);
+  animation: rise 1.2s var(--ease-expo) forwards;
+}
+
+.hero-line .word.delayed-1 { animation-delay: 0.2s; }
+.hero-line .word.delayed-2 { animation-delay: 0.35s; }
+.hero-line .word.delayed-3 { animation-delay: 0.5s; }
+
+@keyframes rise {
+  to { transform: translateY(0); }
+}
+
+.hero-line .accent { color: var(--violet); }
+
+/* The etymology footnote — hero's signature move */
+.hero-etymology {
+  display: grid;
+  grid-template-columns: auto 1fr auto 1fr;
+  gap: 24px;
+  align-items: baseline;
+  padding-top: 40px;
+  border-top: 1px solid var(--line);
+  opacity: 0;
+  animation: fadeUp 1s var(--ease-expo) forwards;
+  animation-delay: 1s;
+  max-width: 880px;
+}
+
+.etym-key {
+  font-family: 'Unica One', sans-serif;
+  font-size: 28px;
+  letter-spacing: 0.1em;
+  color: var(--plum);
+}
+
+.etym-key .accent { color: var(--violet); }
+
+.etym-def {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.etym-def .pos {
+  font-family: 'Fragment Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+  opacity: 0.5;
+}
+
+.etym-def .meaning {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+}
+
+.etym-divider {
+  font-family: 'Fragment Mono', monospace;
+  color: var(--violet);
+  font-size: 18px;
+  align-self: center;
+}
+
+@media (max-width: 720px) {
+  .hero-etymology {
+    grid-template-columns: auto 1fr;
+    gap: 16px 20px;
+  }
+  .etym-divider { display: none; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn { to { opacity: 1; } }
+
+/* ============================================================================
+   ETYMOLOGY MARQUEE — proof bar pattern, about-page content
+   ============================================================================ */
+.proof-bar {
+  background: var(--plum);
+  color: var(--cream);
+  padding: 22px 0;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow: hidden;
+  border-top: 1px solid var(--line-dark);
+  border-bottom: 1px solid var(--line-dark);
+  position: relative;
+  width: 100%;
+}
+
+.proof-bar-track {
+  display: flex;
+  gap: 0;
+  animation: scroll-x 38s linear infinite;
+  white-space: nowrap;
+  flex-shrink: 0;
+  will-change: transform;
+}
+
+.proof-bar:hover .proof-bar-track {
+  animation-play-state: paused;
+}
+
+@keyframes scroll-x {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.proof-bar-item {
+  font-family: 'Fragment Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 32px;
+  color: var(--cream);
+  flex-shrink: 0;
+}
+
+.proof-bar-item:not(:last-child)::after {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  background: var(--violet);
+  border-radius: 50%;
+  margin-left: 32px;
+}
+
+.proof-bar-item .label { opacity: 0.65; }
+.proof-bar-item .key { color: var(--violet-bright); }
+
+/* ============================================================================
+   ORIGIN — "Why we exist." Editorial split, asymmetric.
+   ============================================================================ */
+.origin {
+  background: var(--cream);
+  padding: 160px var(--gutter) 140px;
+  position: relative;
+}
+
+.origin-inner {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: 96px;
+  max-width: var(--max);
+  margin: 0 auto;
+  align-items: start;
+}
+
+.origin-left {
+  position: sticky;
+  top: 120px;
+}
+
+.origin-label {
+  font-family: 'Fragment Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--violet);
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.origin-label::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--violet);
+}
+
+.origin-pull {
+  font-family: 'Unica One', sans-serif;
+  font-size: clamp(40px, 5.2vw, 84px);
+  line-height: 0.92;
+  letter-spacing: -0.015em;
+  color: var(--plum);
+}
+
+.origin-pull .accent { color: var(--violet); }
+
+.origin-pull .strike {
+  display: inline-block;
+  position: relative;
+}
+
+.origin-pull .strike::after {
+  content: '';
+  position: absolute;
+  left: -2%;
+  right: -2%;
+  top: 52%;
+  height: 4px;
+  background: var(--violet);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 800ms var(--ease-expo);
+}
+
+.origin.in-view .origin-pull .strike::after {
+  transform: scaleX(1);
+  transition-delay: 0.6s;
+}
+
+.origin-right {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.origin-right p {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+  font-weight: 300;
+  color: var(--plum);
+  letter-spacing: -0.005em;
+  max-width: 56ch;
+}
+
+.origin-right p .accent {
+  color: var(--violet);
+  font-weight: 500;
+}
+
+.origin-right p strong {
+  font-weight: 500;
+  color: var(--plum);
+}
+
+.origin-sig {
+  margin-top: 24px;
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  align-items: baseline;
+}
+
+.origin-sig-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.origin-sig-item .k {
+  font-family: 'Fragment Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+  opacity: 0.5;
+}
+
+.origin-sig-item .v {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--plum);
+  letter-spacing: -0.005em;
+}
+
+@media (max-width: 1024px) {
+  .origin-inner { grid-template-columns: 1fr; gap: 64px; }
+  .origin-left { position: static; }
+}
+
+/* ============================================================================
+   THE SCALE — large numerals, asymmetric grid
+   ============================================================================ */
+.scale {
+  background: var(--plum);
+  color: var(--cream);
+  padding: 140px var(--gutter) 120px;
+  position: relative;
+  overflow: hidden;
+}
+
+.scale-header {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 80px;
+  margin-bottom: 100px;
+  align-items: end;
+  max-width: var(--max);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.scale-header .label {
+  font-family: 'Fragment Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--violet-bright);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.scale-header .label::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--violet-bright);
+}
+
+.scale-header h2 {
+  font-family: 'Unica One', sans-serif;
+  font-size: clamp(48px, 7vw, 112px);
+  line-height: 0.88;
+  letter-spacing: -0.015em;
+  color: var(--cream);
+}
+
+.scale-header h2 .accent { color: var(--violet-bright); }
+
+.scale-header .description {
+  font-family: 'Inter', sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  font-weight: 300;
+  color: rgba(245, 242, 236, 0.7);
+  max-width: 480px;
+  letter-spacing: -0.005em;
+}
+
+.scale-grid {
+  display: grid;
+  grid-template-columns: 5fr 3fr 4fr 4fr;
+  gap: 48px;
+  border-top: 1px solid var(--line-dark);
+  padding-top: 64px;
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+.scale-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-right: 32px;
+  position: relative;
+  min-height: 220px;
+  justify-content: space-between;
+}
+
+.scale-cell:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1px;
+  height: 100%;
+  background: var(--line-dark);
+}
+
+.scale-cell .meta {
+  font-family: 'Fragment Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(245, 242, 236, 0.5);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.scale-cell .meta .num {
+  color: var(--violet-bright);
+  opacity: 0.85;
+}
+
+.scale-cell .figure {
+  font-family: 'Unica One', sans-serif;
+  font-size: clamp(72px, 9vw, 152px);
+  line-height: 0.85;
+  letter-spacing: -0.025em;
+  color: var(--cream);
+  display: flex;
+  align-items: baseline;
+  gap: 0.04em;
+}
+
+.scale-cell .figure .accent { color: var(--violet-bright); }
+.scale-cell .figure .unit {
+  font-family: 'Unica One', sans-serif;
+  font-size: 0.42em;
+  letter-spacing: 0;
+  color: rgba(245, 242, 236, 0.55);
+  margin-left: 0.05em;
+}
+
+.scale-cell .caption {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.45;
+  color: rgba(245, 242, 236, 0.7);
+  letter-spacing: -0.005em;
+  max-width: 28ch;
+}
+
+@media (max-width: 1024px) {
+  .scale-header { grid-template-columns: 1fr; gap: 48px; }
+  .scale-grid { grid-template-columns: 1fr 1fr; gap: 32px 24px; }
+  .scale-cell { min-height: 180px; padding-right: 16px; }
+  .scale-cell:nth-child(2)::after { display: none; }
+  .scale-cell:not(:last-child) { border-bottom: 1px solid var(--line-dark); padding-bottom: 32px; }
+}
+
+@media (max-width: 640px) {
+  .scale-grid { grid-template-columns: 1fr; }
+  .scale-cell::after { display: none !important; }
+}
+
+/* ============================================================================
+   GEOGRAPHY BOARD — the about page's signature pattern.
+   Departures-board layout. Operator-grade. Monospace columns.
+   ============================================================================ */
+.geo {
+  background: var(--cream);
+  padding: 160px var(--gutter) 140px;
+  position: relative;
+}
+
+.geo-header {
+  max-width: var(--max);
+  margin: 0 auto 72px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: end;
+}
+
+.geo-header .label {
+  font-family: 'Fragment Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--violet);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.geo-header .label::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--violet);
+}
+
+.geo-header h2 {
+  font-family: 'Unica One', sans-serif;
+  font-size: clamp(48px, 7vw, 112px);
+  line-height: 0.88;
+  letter-spacing: -0.015em;
+  color: var(--plum);
+}
+
+.geo-header h2 .accent { color: var(--violet); }
+
+.geo-header .lead {
+  font-family: 'Inter', sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  font-weight: 300;
+  color: var(--plum);
+  opacity: 0.7;
+  max-width: 460px;
+  letter-spacing: -0.005em;
+}
+
+/* Board itself — operator board feel */
+.geo-board {
+  max-width: var(--max);
+  margin: 0 auto;
+  border-top: 1px solid var(--line-strong);
+  border-bottom: 1px solid var(--line-strong);
+  padding: 0;
+}
+
+.geo-board-headrow {
+  display: grid;
+  grid-template-columns: 100px 80px 1fr 120px 120px;
+  gap: 24px;
+  padding: 18px var(--gutter);
+  border-bottom: 1px solid var(--line);
+  background: rgba(26, 18, 64, 0.04);
+}
+
+.geo-board-headrow > span {
+  font-family: 'Fragment Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink);
+  opacity: 0.55;
+}
+
+.geo-region {
+  border-bottom: 1px solid var(--line);
+}
+
+.geo-region:last-child { border-bottom: none; }
+
+.geo-region-label {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 28px var(--gutter) 12px;
+  font-family: 'Unica One', sans-serif;
+  font-size: 22px;
+  letter-spacing: 0.06em;
+  color: var(--plum);
+}
+
+.geo-region-label .count {
+  font-family: 'Fragment Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--violet);
+  opacity: 0.85;
+}
+
+.geo-row {
+  display: grid;
+  grid-template-columns: 100px 80px 1fr 120px 120px;
+  gap: 24px;
+  padding: 16px var(--gutter);
+  align-items: center;
+  position: relative;
+  transition: background 350ms var(--ease-quart), color 350ms var(--ease-quart);
+  cursor: none;
+  overflow: hidden;
+}
+
+.geo-row::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--violet);
+  transform: translateX(-100%);
+  transition: transform 500ms var(--ease-expo);
+  z-index: 0;
+}
+
+.geo-row > * {
+  position: relative;
+  z-index: 1;
+  transition: color 350ms var(--ease-quart), opacity 350ms var(--ease-quart);
+}
+
+.geo-row:hover::before { transform: translateX(0); }
+.geo-row:hover .geo-code,
+.geo-row:hover .geo-iata,
+.geo-row:hover .geo-city,
+.geo-row:hover .geo-country,
+.geo-row:hover .geo-status,
+.geo-row:hover .geo-status .dot { color: var(--cream); }
+.geo-row:hover .geo-iata { opacity: 1; }
+.geo-row:hover .geo-status .dot { background: var(--cream); box-shadow: 0 0 0 4px rgba(245, 242, 236, 0.18); }
+
+.geo-code {
+  font-family: 'Fragment Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  color: var(--ink);
+  opacity: 0.55;
+}
+
+.geo-iata {
+  font-family: 'Unica One', sans-serif;
+  font-size: 22px;
+  letter-spacing: 0.08em;
+  color: var(--violet);
+}
+
+.geo-city {
+  font-family: 'Inter', sans-serif;
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--plum);
+  letter-spacing: -0.005em;
+}
+
+.geo-country {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--plum);
+  opacity: 0.6;
+  letter-spacing: -0.005em;
+  text-align: right;
+}
+
+.geo-status {
+  font-family: 'Fragment Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.geo-status .dot {
+  width: 6px;
+  height: 6px;
+  background: #00C46F;
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+.geo-status.is-hq .dot {
+  background: var(--violet);
+}
+
+/* Board legend below */
+.geo-legend {
+  max-width: var(--max);
+  margin: 32px auto 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 0 var(--gutter);
+  font-family: 'Fragment Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+  opacity: 0.6;
+}
+
+.geo-legend .leg {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.geo-legend .leg .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.geo-legend .leg .dot.live { background: #00C46F; }
+.geo-legend .leg .dot.hq { background: var(--violet); }
+
+@media (max-width: 900px) {
+  .geo-header { grid-template-columns: 1fr; gap: 40px; }
+  .geo-board-headrow,
+  .geo-row {
+    grid-template-columns: 60px 1fr 110px;
+    gap: 12px;
+  }
+  .geo-board-headrow .col-iata,
+  .geo-board-headrow .col-country,
+  .geo-row .geo-iata,
+  .geo-row .geo-country { display: none; }
+  .geo-region-label { font-size: 18px; }
+}
+
+/* ============================================================================
+   COMMITMENTS — the five operating principles
+   Editorial numbered rows. Personality words become eyebrows.
+   ============================================================================ */
+.commit {
+  background: var(--cream-warm);
+  padding: 160px var(--gutter) 140px;
+  position: relative;
+}
+
+.commit-header {
+  max-width: var(--max);
+  margin: 0 auto 96px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: end;
+}
+
+.commit-header .label {
+  font-family: 'Fragment Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--violet);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.commit-header .label::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--violet);
+}
+
+.commit-header h2 {
+  font-family: 'Unica One', sans-serif;
+  font-size: clamp(48px, 7vw, 112px);
+  line-height: 0.88;
+  letter-spacing: -0.015em;
+  color: var(--plum);
+}
+
+.commit-header h2 .accent { color: var(--violet); }
+
+.commit-header .lead {
+  font-family: 'Inter', sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  font-weight: 300;
+  color: var(--plum);
+  opacity: 0.72;
+  max-width: 460px;
+  letter-spacing: -0.005em;
+}
+
+.commit-list {
+  max-width: var(--max);
+  margin: 0 auto;
+  border-top: 1px solid var(--line-strong);
+}
+
+.commit-row {
+  display: grid;
+  grid-template-columns: 80px 200px 1fr 320px;
+  gap: 48px;
+  padding: 56px 0;
+  border-bottom: 1px solid var(--line);
+  align-items: start;
+  transition: background 400ms var(--ease-quart);
+}
+
+.commit-num {
+  font-family: 'Fragment Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  color: var(--violet);
+  padding-top: 8px;
+}
+
+.commit-trait {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 4px;
+}
+
+.commit-trait .word {
+  font-family: 'Unica One', sans-serif;
+  font-size: 22px;
+  letter-spacing: 0.08em;
+  color: var(--plum);
+  text-transform: uppercase;
+}
+
+.commit-trait .pos {
+  font-family: 'Fragment Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+  opacity: 0.5;
+}
+
+.commit-headline {
+  font-family: 'Unica One', sans-serif;
+  font-size: clamp(28px, 3.6vw, 48px);
+  line-height: 0.95;
+  letter-spacing: -0.012em;
+  color: var(--plum);
+}
+
+.commit-headline .accent { color: var(--violet); }
+
+.commit-body {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  line-height: 1.55;
+  font-weight: 400;
+  color: var(--plum);
+  opacity: 0.72;
+  letter-spacing: -0.005em;
+}
+
+@media (max-width: 1024px) {
+  .commit-header { grid-template-columns: 1fr; gap: 40px; }
+  .commit-row {
+    grid-template-columns: 56px 1fr;
+    gap: 24px;
+    padding: 40px 0;
+  }
+  .commit-trait { grid-column: 2; flex-direction: row; align-items: baseline; gap: 16px; padding-top: 0; margin-bottom: 8px; }
+  .commit-headline { grid-column: 2; }
+  .commit-body { grid-column: 2; }
+}
+
+/* ============================================================================
+   SIGNATURE — who you actually get
+   ============================================================================ */
+.signature {
+  background: var(--plum);
+  color: var(--cream);
+  padding: 160px var(--gutter) 140px;
+  position: relative;
+  overflow: hidden;
+}
+
+.signature-header {
+  max-width: var(--max);
+  margin: 0 auto 80px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: end;
+}
+
+.signature-header .label {
+  font-family: 'Fragment Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--violet-bright);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.signature-header .label::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--violet-bright);
+}
+
+.signature-header h2 {
+  font-family: 'Unica One', sans-serif;
+  font-size: clamp(48px, 7vw, 112px);
+  line-height: 0.88;
+  letter-spacing: -0.015em;
+  color: var(--cream);
+}
+
+.signature-header h2 .accent { color: var(--violet-bright); }
+
+.signature-header .lead {
+  font-family: 'Inter', sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  font-weight: 300;
+  color: rgba(245, 242, 236, 0.7);
+  max-width: 460px;
+  letter-spacing: -0.005em;
+}
+
+.signature-grid {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: 80px;
+  align-items: start;
+}
+
+/* Wahab card */
+.signature-card {
+  background: var(--plum-deep);
+  border: 1px solid var(--line-dark);
+  padding: 48px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  transition: border-color 350ms var(--ease-quart);
+}
+
+.signature-card:hover { border-color: var(--violet); }
+
+.signature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 64px;
+  background: var(--violet);
+}
+
+.signature-card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Fragment Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(245, 242, 236, 0.5);
+}
+
+.signature-card-meta .live {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--violet-bright);
+}
+
+.signature-card-meta .live::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: #00C46F;
+  border-radius: 50%;
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+.signature-card-name {
+  font-family: 'Unica One', sans-serif;
+  font-size: clamp(40px, 4.4vw, 64px);
+  line-height: 0.92;
+  letter-spacing: -0.015em;
+  color: var(--cream);
+}
+
+.signature-card-role {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--violet-bright);
+  letter-spacing: -0.005em;
+}
+
+.signature-card-bio {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: rgba(245, 242, 236, 0.72);
+  line-height: 1.6;
+  letter-spacing: -0.005em;
+}
+
+.signature-card-stack {
+  border-top: 1px solid var(--line-dark);
+  padding-top: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 24px;
+}
+
+.signature-card-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.signature-card-row .k {
+  font-family: 'Fragment Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(245, 242, 236, 0.45);
+}
+
+.signature-card-row .v {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--cream);
+  letter-spacing: -0.005em;
+}
+
+/* Right column — the philosophy ledger */
+.signature-ledger {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-top: 1px solid var(--line-dark);
+}
+
+.ledger-row {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 32px;
+  padding: 32px 0;
+  border-bottom: 1px solid var(--line-dark);
+  align-items: start;
+}
+
+.ledger-row .num {
+  font-family: 'Fragment Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--violet-bright);
+  padding-top: 6px;
+}
+
+.ledger-row .body {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(18px, 1.8vw, 22px);
+  line-height: 1.4;
+  font-weight: 300;
+  color: var(--cream);
+  letter-spacing: -0.012em;
+}
+
+.ledger-row .body strong {
+  font-weight: 500;
+  color: var(--cream);
+}
+
+.ledger-row .body .accent {
+  color: var(--violet-bright);
+  font-weight: 500;
+}
+
+@media (max-width: 1024px) {
+  .signature-header { grid-template-columns: 1fr; gap: 40px; }
+  .signature-grid { grid-template-columns: 1fr; gap: 48px; }
+  .signature-card { padding: 32px; }
+}
+
+/* ============================================================================
+   SELECTED PROOF — case-study chips with real numbers
+   ============================================================================ */
+.proof {
+  background: var(--cream);
+  padding: 160px var(--gutter) 140px;
+  position: relative;
+}
+
+.proof-header {
+  max-width: var(--max);
+  margin: 0 auto 80px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: end;
+}
+
+.proof-header .label {
+  font-family: 'Fragment Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--violet);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.proof-header .label::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--violet);
+}
+
+.proof-header h2 {
+  font-family: 'Unica One', sans-serif;
+  font-size: clamp(48px, 7vw, 112px);
+  line-height: 0.88;
+  letter-spacing: -0.015em;
+  color: var(--plum);
+}
+
+.proof-header h2 .accent { color: var(--violet); }
+
+.proof-header .lead {
+  font-family: 'Inter', sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  font-weight: 300;
+  color: var(--plum);
+  opacity: 0.72;
+  max-width: 460px;
+  letter-spacing: -0.005em;
+}
+
+.proof-grid {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+}
+
+.proof-card {
+  background: var(--cream);
+  border: 1px solid var(--line);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
+  transition: border-color 400ms var(--ease-quart), background 400ms var(--ease-quart);
+  overflow: hidden;
+}
+
+.proof-card::after {
+  content: '→';
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  font-size: 22px;
+  color: var(--violet);
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 350ms var(--ease-quart), transform 350ms var(--ease-quart);
+}
+
+.proof-card:hover {
+  border-color: var(--violet);
+  background: var(--cream-warm);
+}
+
+.proof-card:hover::after { opacity: 1; transform: translateX(0); }
+
+.proof-card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Fragment Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.proof-card-meta .num {
+  color: var(--violet);
+  opacity: 0.85;
+}
+
+.proof-card-meta .sector {
+  color: var(--ink);
+  opacity: 0.55;
+}
+
+.proof-card-client {
+  font-family: 'Unica One', sans-serif;
+  font-size: clamp(28px, 3vw, 40px);
+  line-height: 0.95;
+  letter-spacing: -0.012em;
+  color: var(--plum);
+  padding-right: 40px;
+}
+
+.proof-card-client .accent { color: var(--violet); }
+
+.proof-card-line {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--plum);
+  opacity: 0.72;
+  letter-spacing: -0.005em;
+}
+
+.proof-card-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  margin-top: auto;
+}
+
+.proof-card-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.proof-card-stat .v {
+  font-family: 'Unica One', sans-serif;
+  font-size: 28px;
+  letter-spacing: -0.01em;
+  color: var(--plum);
+  line-height: 1;
+}
+
+.proof-card-stat .v .accent { color: var(--violet); }
+
+.proof-card-stat .k {
+  font-family: 'Fragment Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+  opacity: 0.55;
+}
+
+@media (max-width: 1024px) {
+  .proof-header { grid-template-columns: 1fr; gap: 40px; }
+  .proof-grid { grid-template-columns: 1fr; }
+  .proof-card { padding: 32px; }
+}
+
+/* ============================================================================
+   CTA STRIP — minimal redirect to homepage form
+   ============================================================================ */
+.cta {
+  background: var(--plum);
+  color: var(--cream);
+  padding: 140px var(--gutter);
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 80px;
+  align-items: end;
+}
+
+.cta-left h2 {
+  font-family: 'Unica One', sans-serif;
+  font-size: clamp(56px, 9vw, 144px);
+  line-height: 0.88;
+  letter-spacing: -0.018em;
+  color: var(--cream);
+}
+
+.cta-left h2 .accent { color: var(--violet-bright); }
+
+.cta-left .label {
+  font-family: 'Fragment Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--violet-bright);
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cta-left .label::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--violet-bright);
+}
+
+.cta-right {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.cta-right p {
+  font-family: 'Inter', sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  font-weight: 300;
+  color: rgba(245, 242, 236, 0.72);
+  letter-spacing: -0.005em;
+  max-width: 36ch;
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  padding: 22px 32px;
+  background: var(--violet);
+  color: var(--cream);
+  border-radius: 100px;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  width: fit-content;
+  border: 1px solid var(--violet);
+  transition: background 300ms var(--ease-quart), color 300ms var(--ease-quart), border-color 300ms var(--ease-quart);
+}
+
+.cta-button:hover {
+  background: var(--cream);
+  color: var(--plum);
+  border-color: var(--cream);
+}
+
+.cta-button .arrow {
+  display: inline-block;
+  transition: transform 300ms var(--ease-quart);
+}
+
+.cta-button:hover .arrow { transform: translateX(4px); }
+
+.cta-direct {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+  font-family: 'Fragment Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(245, 242, 236, 0.5);
+  padding-top: 20px;
+  border-top: 1px solid var(--line-dark);
+}
+
+.cta-direct a { color: var(--violet-bright); }
+.cta-direct a:hover { color: var(--cream); }
+
+@media (max-width: 1024px) {
+  .cta-inner { grid-template-columns: 1fr; gap: 48px; align-items: start; }
+}
+
+/* ============================================================================
+   FOOTER — cloned from homepage exactly
+   ============================================================================ */
+footer {
+  background: var(--plum-deep);
+  color: var(--cream);
+  padding: 80px var(--gutter) 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  gap: 64px;
+  padding-bottom: 64px;
+  border-bottom: 1px solid var(--line-dark);
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+.footer-mark {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.footer-mark svg {
+  width: 48px;
+  height: 48px;
+}
+
+.footer-mark .name {
+  font-family: 'Unica One', sans-serif;
+  font-size: 22px;
+  letter-spacing: 0.12em;
+  color: var(--cream);
+}
+
+.footer-mark .tag {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(245, 242, 236, 0.55);
+  letter-spacing: -0.005em;
+}
+
+.footer-col h5 {
+  font-family: 'Fragment Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--violet-bright);
+  margin-bottom: 20px;
+  font-weight: 400;
+}
+
+.footer-col ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-col a {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(245, 242, 236, 0.72);
+  letter-spacing: -0.005em;
+  transition: color 250ms var(--ease-quart);
+}
+
+.footer-col a:hover { color: var(--violet-bright); }
+
+.footer-bottom {
+  padding-top: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+.footer-meta {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.footer-meta-item {
+  font-family: 'Fragment Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(245, 242, 236, 0.45);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-meta-item .live {
+  width: 6px;
+  height: 6px;
+  background: #00FF88;
+  border-radius: 50%;
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+.footer-bigmark {
+  font-family: 'Unica One', sans-serif;
+  font-size: clamp(120px, 22vw, 360px);
+  line-height: 0.82;
+  letter-spacing: -0.04em;
+  color: var(--cream);
+  margin: 80px 0 -24px -8px;
+  user-select: none;
+  pointer-events: none;
+  max-width: var(--max);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.footer-bigmark .accent { color: var(--violet); }
+
+/* ============================================================================
+   RESPONSIVE
+   ============================================================================ */
+@media (max-width: 1024px) {
+  .hero { padding-top: 120px; }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+}
+
+@media (max-width: 640px) {
+  .footer-top { grid-template-columns: 1fr; }
+  .footer-bigmark { font-size: 30vw; }
+  .scale-cell .figure { font-size: clamp(56px, 14vw, 96px); }
+  .commit-row { padding: 32px 0; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Custom cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-trail" id="cursor-trail"></div>
+
+<!-- =====================================================
+     NAV
+     ===================================================== -->
+<nav class="nav">
+  <a href="/" class="nav-mark">
+    <span class="dot"></span>
+    KNOATIV
+  </a>
+  <div class="nav-links">
+    <a href="/#acts" class="nav-link">
+      <span class="num">01</span>
+      <span class="label">Acts</span>
+    </a>
+    <a href="/#work" class="nav-link">
+      <span class="num">02</span>
+      <span class="label">Work</span>
+    </a>
+    <a href="/#approach" class="nav-link">
+      <span class="num">03</span>
+      <span class="label">Approach</span>
+    </a>
+    <a href="/#manifesto" class="nav-link">
+      <span class="num">04</span>
+      <span class="label">Manifesto</span>
+    </a>
+    <a href="/about" class="nav-link active">
+      <span class="num">05</span>
+      <span class="label">About</span>
+    </a>
+  </div>
+  <div class="nav-right">
+    <span class="nav-status" id="nav-status-text">KARACHI 14:32 PKT</span>
+    <a href="/#contact" class="nav-cta">Talk to us</a>
+  </div>
+</nav>
+
+<!-- =====================================================
+     01 — HERO / ETYMOLOGY
+     ===================================================== -->
+<section class="hero" id="premise">
+  <div class="hero-eyebrow">
+    <span class="opacity-half">About</span>
+    <span class="accent">/ 01</span>
+    <span class="opacity-half">The premise</span>
+  </div>
+
+  <div class="hero-headline">
+    <div class="hero-line">
+      <span class="word delayed-1">Knowledge,</span>
+    </div>
+    <div class="hero-line">
+      <span class="word delayed-2">acted</span>
+      <span class="word delayed-3 accent">upon.</span>
+    </div>
+  </div>
+
+  <div class="hero-etymology">
+    <div class="etym-key">KNO<span class="accent">·</span></div>
+    <div class="etym-def">
+      <span class="pos">noun · stem</span>
+      <span class="meaning">What is known. The intelligence held — about retail, about operations, about the actual thing.</span>
+    </div>
+    <div class="etym-divider">×</div>
+    <div class="etym-def">
+      <span class="pos">suffix · -ative</span>
+      <span class="meaning">Tending to act. Of a kind that does. The opposite of a deck about doing.</span>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================
+     02 — ETYMOLOGY MARQUEE
+     ===================================================== -->
+<div class="proof-bar">
+  <div class="proof-bar-track">
+    <div class="proof-bar-item"><span class="key">K&middot;N&middot;O</span> <span class="label">/ to know</span></div>
+    <div class="proof-bar-item"><span class="key">A&middot;T&middot;I&middot;V</span> <span class="label">/ to act</span></div>
+    <div class="proof-bar-item"><span class="key">KNOATIV</span> <span class="label">/ knowledge acted upon</span></div>
+    <div class="proof-bar-item"><span class="label">not pitched</span></div>
+    <div class="proof-bar-item"><span class="label">not workshopped</span></div>
+    <div class="proof-bar-item"><span class="label">not roadmapped</span></div>
+    <div class="proof-bar-item"><span class="key">SHIPPED</span></div>
+    <!-- duplicate set for seamless loop -->
+    <div class="proof-bar-item"><span class="key">K&middot;N&middot;O</span> <span class="label">/ to know</span></div>
+    <div class="proof-bar-item"><span class="key">A&middot;T&middot;I&middot;V</span> <span class="label">/ to act</span></div>
+    <div class="proof-bar-item"><span class="key">KNOATIV</span> <span class="label">/ knowledge acted upon</span></div>
+    <div class="proof-bar-item"><span class="label">not pitched</span></div>
+    <div class="proof-bar-item"><span class="label">not workshopped</span></div>
+    <div class="proof-bar-item"><span class="label">not roadmapped</span></div>
+    <div class="proof-bar-item"><span class="key">SHIPPED</span></div>
+  </div>
+</div>
+
+<!-- =====================================================
+     03 — ORIGIN — Why we exist
+     ===================================================== -->
+<section class="origin" id="origin">
+  <div class="origin-inner">
+    <div class="origin-left">
+      <div class="origin-label">02 / Why we exist</div>
+      <div class="origin-pull">
+        Retail consulting was built for the <span class="strike">boardroom.</span><br>
+        We were built for the <span class="accent">operator.</span>
+      </div>
+    </div>
+
+    <div class="origin-right">
+      <p>
+        Most retail intelligence, as practiced today, ends in a slide. The discovery deck. The transformation roadmap. The capability map with thirty-eight workstreams and a launch date eighteen months out. The smartest people in retail spend their best years briefing PowerPoints that no operator will ever execute.
+      </p>
+      <p>
+        <strong>KNOATIV exists because that pattern is broken.</strong> The deliverable of intelligence is not a deck. The deliverable is what intelligence becomes when you act on it — a working system, in production, that the operating team uses on Monday.
+      </p>
+      <p>
+        We took the etymology seriously. <span class="accent">KNO + active.</span> The thing you know, made operational. We don't run discovery workshops because we've already done the work. We don't sell transformation because we ship the smaller, harder thing: a system that actually runs.
+      </p>
+      <p>
+        Built in Karachi, working across eighteen markets, with a senior person in every room from kickoff to handover. No juniors halfway through. No methodology theatre. Just the thing, deployed.
+      </p>
+
+      <div class="origin-sig">
+        <div class="origin-sig-item">
+          <span class="k">Founded</span>
+          <span class="v">Karachi · Pakistan</span>
+        </div>
+        <div class="origin-sig-item">
+          <span class="k">Operating</span>
+          <span class="v">Globally · 18 markets</span>
+        </div>
+        <div class="origin-sig-item">
+          <span class="k">Discipline</span>
+          <span class="v">Retail intelligence</span>
+        </div>
+        <div class="origin-sig-item">
+          <span class="k">Method</span>
+          <span class="v">Built, not pitched</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================
+     04 — THE SCALE
+     ===================================================== -->
+<section class="scale" id="scale">
+  <div class="scale-header">
+    <div>
+      <div class="label">03 / Operating record</div>
+      <h2>The numbers,<br>not the <span class="accent">narrative.</span></h2>
+    </div>
+    <div class="description">
+      Fifteen years on the floor. Five hundred engagements behind us. Eighteen markets currently live. The shape of the firm, in figures we can defend.
+    </div>
+  </div>
+
+  <div class="scale-grid">
+    <div class="scale-cell">
+      <div class="meta"><span class="num">[ 01 ]</span> Engagements shipped</div>
+      <div class="figure"><span class="accent">500</span><span class="unit">+</span></div>
+      <div class="caption">Cumulative client engagements across the firm's operating history. Each one ended in deployment, not a recommendation.</div>
+    </div>
+    <div class="scale-cell">
+      <div class="meta"><span class="num">[ 02 ]</span> Active markets</div>
+      <div class="figure">18</div>
+      <div class="caption">Live in eighteen countries across five continents. Karachi to Auckland, Riyadh to Toronto, Vilnius to Abidjan.</div>
+    </div>
+    <div class="scale-cell">
+      <div class="meta"><span class="num">[ 03 ]</span> Years operating</div>
+      <div class="figure"><span class="accent">15</span><span class="unit">+</span></div>
+      <div class="caption">In retail technology. Long enough to have seen every fashionable methodology fail and to have stopped recommending them.</div>
+    </div>
+    <div class="scale-cell">
+      <div class="meta"><span class="num">[ 04 ]</span> Avg. ship time</div>
+      <div class="figure"><span class="accent">8</span><span class="unit">w</span></div>
+      <div class="caption">Concept to live deployment for a typical engagement. The roadmap version of the same scope routinely quotes eighteen months.</div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================
+     05 — GEOGRAPHY BOARD — the about-page signature
+     ===================================================== -->
+<section class="geo" id="map">
+  <div class="geo-header">
+    <div>
+      <div class="label">04 / Where we operate</div>
+      <h2>Eighteen markets.<br>One <span class="accent">senior team.</span></h2>
+    </div>
+    <div class="lead">
+      Headquartered in Karachi. Live across the Gulf, Europe, the Americas, and APAC. We don't open offices to win deals — we open them when the operating reality demands a senior person in the room.
+    </div>
+  </div>
+
+  <div class="geo-board">
+    <div class="geo-board-headrow">
+      <span>Code</span>
+      <span class="col-iata">IATA</span>
+      <span>City</span>
+      <span class="col-country">Country</span>
+      <span style="text-align: right;">Status</span>
+    </div>
+
+    <!-- South Asia / HQ -->
+    <div class="geo-region">
+      <div class="geo-region-label">
+        South Asia
+        <span class="count">[ 01 ]</span>
+      </div>
+      <div class="geo-row">
+        <span class="geo-code">KHI&middot;01</span>
+        <span class="geo-iata">KHI</span>
+        <span class="geo-city">Karachi</span>
+        <span class="geo-country">Pakistan</span>
+        <span class="geo-status is-hq"><span class="dot"></span>Headquarters</span>
+      </div>
+    </div>
+
+    <!-- Gulf / Middle East -->
+    <div class="geo-region">
+      <div class="geo-region-label">
+        Gulf &amp; Middle East
+        <span class="count">[ 04 ]</span>
+      </div>
+      <div class="geo-row">
+        <span class="geo-code">RUH&middot;02</span>
+        <span class="geo-iata">RUH</span>
+        <span class="geo-city">Riyadh</span>
+        <span class="geo-country">Saudi Arabia</span>
+        <span class="geo-status"><span class="dot"></span>Active</span>
+      </div>
+      <div class="geo-row">
+        <span class="geo-code">DXB&middot;03</span>
+        <span class="geo-iata">DXB</span>
+        <span class="geo-city">Dubai</span>
+        <span class="geo-country">United Arab Emirates</span>
+        <span class="geo-status"><span class="dot"></span>Active</span>
+      </div>
+      <div class="geo-row">
+        <span class="geo-code">MCT&middot;04</span>
+        <span class="geo-iata">MCT</span>
+        <span class="geo-city">Muscat</span>
+        <span class="geo-country">Oman</span>
+        <span class="geo-status"><span class="dot"></span>Active</span>
+      </div>
+      <div class="geo-row">
+        <span class="geo-code">BAH&middot;05</span>
+        <span class="geo-iata">BAH</span>
+        <span class="geo-city">Manama</span>
+        <span class="geo-country">Bahrain</span>
+        <span class="geo-status"><span class="dot"></span>Active</span>
+      </div>
+    </div>
+
+    <!-- Europe -->
+    <div class="geo-region">
+      <div class="geo-region-label">
+        Europe
+        <span class="count">[ 05 ]</span>
+      </div>
+      <div class="geo-row">
+        <span class="geo-code">LHR&middot;06</span>
+        <span class="geo-iata">LHR</span>
+        <span class="geo-city">London</span>
+        <span class="geo-country">United Kingdom</span>
+        <span class="geo-status"><span class="dot"></span>Active</span>
+      </div>
+      <div class="geo-row">
+        <span class="geo-code">FRA&middot;07</span>
+        <span class="geo-iata">FRA</span>
+        <span class="geo-city">Frankfurt</span>
+        <span class="geo-country">Germany</span>
+        <span class="geo-status"><span class="dot"></span>Active</span>
+      </div>
+      <div class="geo-row">
+        <span class="geo-code">ZRH&middot;08</span>
+        <span class="geo-iata">ZRH</span>
+        <span class="geo-city">Zurich</span>
+        <span class="geo-country">Switzerland</span>
+        <span class="geo-status"><span class="dot"></span>Active</span>
+      </div>
+      <div class="geo-row">
+        <span class="geo-code">BUD&middot;09</span>
+        <span class="geo-iata">BUD</span>
+        <span class="geo-city">Budapest</span>
+        <span class="geo-country">Hungary</span>
+        <span class="geo-status"><span class="dot"></span>Active</span>
+      </div>
+      <div class="geo-row">
+        <span class="geo-code">VNO&middot;10</span>
+        <span class="geo-iata">VNO</span>
+        <span class="geo-city">Vilnius</span>
+        <span class="geo-country">Lithuania</span>
+        <span class="geo-status"><span class="dot"></span>Active</span>
+      </div>
+    </div>
+
+    <!-- Americas -->
+    <div class="geo-region">
+      <div class="geo-region-label">
+        Americas
+        <span class="count">[ 04 ]</span>
+      </div>
+      <div class="geo-row">
+        <span class="geo-code">DFW&middot;11</span>
+        <span class="geo-iata">DFW</span>
+        <span class="geo-city">Dallas</span>
+        <span class="geo-country">United States</span>
+        <span class="geo-status"><span class="dot"></span>Active</span>
+      </div>
+      <div class="geo-row">
+        <span class="geo-code">YYZ&middot;12</span>
+        <span class="geo-iata">YYZ</span>
+        <span class="geo-city">Toronto</span>
+        <span class="geo-country">Canada</span>
+        <span class="geo-status"><span class="dot"></span>Active</span>
+      </div>
+      <div class="geo-row">
+        <span class="geo-code">MEX&middot;13</span>
+        <span class="geo-iata">MEX</span>
+        <span class="geo-city">Mexico City</span>
+        <span class="geo-country">Mexico</span>
+        <span class="geo-status"><span class="dot"></span>Active</span>
+      </div>
+      <div class="geo-row">
+        <span class="geo-code">EZE&middot;14</span>
+        <span class="geo-iata">EZE</span>
+        <span class="geo-city">Buenos Aires</span>
+        <span class="geo-country">Argentina</span>
+        <span class="geo-status"><span class="dot"></span>Active</span>
+      </div>
+    </div>
+
+    <!-- Asia-Pacific -->
+    <div class="geo-region">
+      <div class="geo-region-label">
+        Asia-Pacific
+        <span class="count">[ 03 ]</span>
+      </div>
+      <div class="geo-row">
+        <span class="geo-code">HND&middot;15</span>
+        <span class="geo-iata">HND</span>
+        <span class="geo-city">Tokyo</span>
+        <span class="geo-country">Japan</span>
+        <span class="geo-status"><span class="dot"></span>Active</span>
+      </div>
+      <div class="geo-row">
+        <span class="geo-code">SYD&middot;16</span>
+        <span class="geo-iata">SYD</span>
+        <span class="geo-city">Sydney</span>
+        <span class="geo-country">Australia</span>
+        <span class="geo-status"><span class="dot"></span>Active</span>
+      </div>
+      <div class="geo-row">
+        <span class="geo-code">AKL&middot;17</span>
+        <span class="geo-iata">AKL</span>
+        <span class="geo-city">Auckland</span>
+        <span class="geo-country">New Zealand</span>
+        <span class="geo-status"><span class="dot"></span>Active</span>
+      </div>
+    </div>
+
+    <!-- Africa -->
+    <div class="geo-region">
+      <div class="geo-region-label">
+        West Africa
+        <span class="count">[ 01 ]</span>
+      </div>
+      <div class="geo-row">
+        <span class="geo-code">ABJ&middot;18</span>
+        <span class="geo-iata">ABJ</span>
+        <span class="geo-city">Abidjan</span>
+        <span class="geo-country">Ivory Coast</span>
+        <span class="geo-status"><span class="dot"></span>Active</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="geo-legend">
+    <div class="leg"><span class="dot hq"></span>Headquarters</div>
+    <div class="leg"><span class="dot live"></span>Live engagement</div>
+    <div class="leg">Last refresh — Q2 2026</div>
+  </div>
+</section>
+
+<!-- =====================================================
+     06 — OPERATING PRINCIPLES
+     ===================================================== -->
+<section class="commit" id="commitments">
+  <div class="commit-header">
+    <div>
+      <div class="label">05 / How we are wired</div>
+      <h2>Five commitments.<br>No <span class="accent">decoration.</span></h2>
+    </div>
+    <div class="lead">
+      Our brand personality, translated into operational language. The five things you can hold us to — and refuse the work for, if we don't honour them.
+    </div>
+  </div>
+
+  <div class="commit-list">
+    <div class="commit-row">
+      <div class="commit-num">01</div>
+      <div class="commit-trait">
+        <span class="word">Visionary</span>
+        <span class="pos">trait · 01</span>
+      </div>
+      <div class="commit-headline">See the system <span class="accent">before it exists.</span></div>
+      <div class="commit-body">We architect the operational reality the client hasn't built yet — not the trend deck the industry is currently selling. Future-tense thinking grounded in present-tense constraints.</div>
+    </div>
+
+    <div class="commit-row">
+      <div class="commit-num">02</div>
+      <div class="commit-trait">
+        <span class="word">Grounded</span>
+        <span class="pos">trait · 02</span>
+      </div>
+      <div class="commit-headline">Ambition matched to <span class="accent">operating leverage.</span></div>
+      <div class="commit-body">Every recommendation is sized to what the client can actually deploy, run, and measure. We don't pitch ceilings the floor can't carry. Scope is the discipline.</div>
+    </div>
+
+    <div class="commit-row">
+      <div class="commit-num">03</div>
+      <div class="commit-trait">
+        <span class="word">Observant</span>
+        <span class="pos">trait · 03</span>
+      </div>
+      <div class="commit-headline">Listen first. Diagnose what's <span class="accent">actually broken.</span></div>
+      <div class="commit-body">Before we write a line of code or a line of strategy, we sit with the operators. Most retail problems are not the problems the brief describes. We map the real one.</div>
+    </div>
+
+    <div class="commit-row">
+      <div class="commit-num">04</div>
+      <div class="commit-trait">
+        <span class="word">Compassionate</span>
+        <span class="pos">trait · 04</span>
+      </div>
+      <div class="commit-headline">Built for the operator, <span class="accent">not the steering committee.</span></div>
+      <div class="commit-body">The system gets used by the store manager, the merchandiser, the loyalty analyst — not the SVP it was sold to. We design for the hand that touches it on a Tuesday.</div>
+    </div>
+
+    <div class="commit-row">
+      <div class="commit-num">05</div>
+      <div class="commit-trait">
+        <span class="word">Methodical</span>
+        <span class="pos">trait · 05</span>
+      </div>
+      <div class="commit-headline">Discipline as the only <span class="accent">design constraint.</span></div>
+      <div class="commit-body">Restraint in promise. Restraint in scope. Restraint in language. The least dramatic option is almost always the one that ships — and the one that keeps shipping after we leave.</div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================
+     07 — SIGNATURE — Who you actually get
+     ===================================================== -->
+<section class="signature" id="signature">
+  <div class="signature-header">
+    <div>
+      <div class="label">06 / The room you walk into</div>
+      <h2>Senior person.<br>Every <span class="accent">engagement.</span></h2>
+    </div>
+    <div class="lead">
+      You don't get a director-of-this and a partner-of-that and a team you'll never meet. You get the senior person who scoped the work, building the work, handing it over.
+    </div>
+  </div>
+
+  <div class="signature-grid">
+    <article class="signature-card">
+      <div class="signature-card-meta">
+        <span>[ Voice of brand ]</span>
+        <span class="live">Available</span>
+      </div>
+
+      <div>
+        <div class="signature-card-name">Wahab<br>Naeem.</div>
+        <div class="signature-card-role" style="margin-top: 16px;">Brand Experience Leader</div>
+      </div>
+
+      <div class="signature-card-bio">
+        Custodian of how the firm shows up — wordmark, voice, and every surface that reaches an operator. The person responsible for the discipline that keeps KNOATIV from sounding like its competitors.
+      </div>
+
+      <div class="signature-card-stack">
+        <div class="signature-card-row">
+          <span class="k">Based</span>
+          <span class="v">Karachi · Pakistan</span>
+        </div>
+        <div class="signature-card-row">
+          <span class="k">Discipline</span>
+          <span class="v">Brand · Identity · Editorial</span>
+        </div>
+        <div class="signature-card-row">
+          <span class="k">Reach</span>
+          <span class="v">All 18 markets</span>
+        </div>
+        <div class="signature-card-row">
+          <span class="k">Direct</span>
+          <span class="v">wahab@knoativ.com</span>
+        </div>
+      </div>
+    </article>
+
+    <div class="signature-ledger">
+      <div class="ledger-row">
+        <div class="num">01</div>
+        <div class="body">
+          The senior person who <strong>scoped</strong> the work is the senior person who <span class="accent">ships</span> the work. No handoff to juniors halfway through the engagement.
+        </div>
+      </div>
+      <div class="ledger-row">
+        <div class="num">02</div>
+        <div class="body">
+          The senior person stays <strong>in the room</strong> from kickoff through deployment. Through every architecture decision. Through every awkward conversation about scope.
+        </div>
+      </div>
+      <div class="ledger-row">
+        <div class="num">03</div>
+        <div class="body">
+          We are <strong>cross-disciplinary by default</strong> — strategists, system architects, designers, and engineers in the same conversation. The thinking and the building don't happen in different buildings.
+        </div>
+      </div>
+      <div class="ledger-row">
+        <div class="num">04</div>
+        <div class="body">
+          We don't <strong>add bodies</strong> to win deals. The team that sells the engagement is the team that delivers it. If the seniors are stretched, we say so before the contract.
+        </div>
+      </div>
+      <div class="ledger-row">
+        <div class="num">05</div>
+        <div class="body">
+          Post-deployment, we <strong>stay accountable</strong>. The senior person who delivered is the one you call when something needs adjusting in production. <span class="accent">No tickets. No queues.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================
+     08 — SELECTED PROOF
+     ===================================================== -->
+<section class="proof" id="proof">
+  <div class="proof-header">
+    <div>
+      <div class="label">07 / Selected proof</div>
+      <h2>Real clients.<br>Real <span class="accent">numbers.</span></h2>
+    </div>
+    <div class="lead">
+      Four engagements, picked because the metrics survive scrutiny. Each one shipped to production. Each one still running. Confidential names where commercial discipline requires it.
+    </div>
+  </div>
+
+  <div class="proof-grid">
+    <article class="proof-card">
+      <div class="proof-card-meta">
+        <span class="num">[ 01 ]</span>
+        <span class="sector">FMCG · Loyalty</span>
+      </div>
+      <div class="proof-card-client">P&amp;G <span class="accent">/</span> Pampers</div>
+      <div class="proof-card-line">
+        Built the loyalty system that gave the brand customer visibility for the first time. Buy any pack, any store, scan the receipt, earn points. Content engagement and purchase data, in a single layer.
+      </div>
+      <div class="proof-card-stats">
+        <div class="proof-card-stat">
+          <span class="v"><span class="accent">10M+</span></span>
+          <span class="k">Members enrolled</span>
+        </div>
+        <div class="proof-card-stat">
+          <span class="v">78%</span>
+          <span class="k">Buyer registration</span>
+        </div>
+        <div class="proof-card-stat">
+          <span class="v">2x</span>
+          <span class="k">Basket size lift</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="proof-card">
+      <div class="proof-card-meta">
+        <span class="num">[ 02 ]</span>
+        <span class="sector">DTC · E-commerce</span>
+      </div>
+      <div class="proof-card-client">Comvita <span class="accent">/</span> Manuka</div>
+      <div class="proof-card-line">
+        Reduced acquisition cost and accelerated fulfillment for a fifty-year-old brand whose digital channel needed to grow up. Loyalty and personalization stitched into the buying experience.
+      </div>
+      <div class="proof-card-stats">
+        <div class="proof-card-stat">
+          <span class="v"><span class="accent">2x</span></span>
+          <span class="k">Digital revenue</span>
+        </div>
+        <div class="proof-card-stat">
+          <span class="v">−25%</span>
+          <span class="k">Customer acq. cost</span>
+        </div>
+        <div class="proof-card-stat">
+          <span class="v">+30%</span>
+          <span class="k">Fulfillment speed</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="proof-card">
+      <div class="proof-card-meta">
+        <span class="num">[ 03 ]</span>
+        <span class="sector">Multi-format · Loyalty Ops</span>
+      </div>
+      <div class="proof-card-client">Saudi Retail <span class="accent">/</span> Confidential</div>
+      <div class="proof-card-line">
+        Ran a campaign engine across three hundred and thirty-eight executions in a single year. Targeting, segmentation, redemption — all on a single operating layer instead of the three-vendor stack it replaced.
+      </div>
+      <div class="proof-card-stats">
+        <div class="proof-card-stat">
+          <span class="v"><span class="accent">SAR 84M</span></span>
+          <span class="k">Incremental sales</span>
+        </div>
+        <div class="proof-card-stat">
+          <span class="v">9.64M</span>
+          <span class="k">Customers targeted</span>
+        </div>
+        <div class="proof-card-stat">
+          <span class="v">311K</span>
+          <span class="k">Active redeemers</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="proof-card">
+      <div class="proof-card-meta">
+        <span class="num">[ 04 ]</span>
+        <span class="sector">Regional · Unified Loyalty</span>
+      </div>
+      <div class="proof-card-client">Regional Retail <span class="accent">/</span> Group</div>
+      <div class="proof-card-line">
+        Custom loyalty platform integrated with POS, e-commerce, and mobile. Concept to live deployment in eight weeks. Original vendor proposal: eighteen months. Same scope, different operating philosophy.
+      </div>
+      <div class="proof-card-stats">
+        <div class="proof-card-stat">
+          <span class="v"><span class="accent">8w</span></span>
+          <span class="k">Concept to live</span>
+        </div>
+        <div class="proof-card-stat">
+          <span class="v">47</span>
+          <span class="k">Stores covered</span>
+        </div>
+        <div class="proof-card-stat">
+          <span class="v">+34%</span>
+          <span class="k">Repeat purchase</span>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- =====================================================
+     09 — CTA STRIP
+     ===================================================== -->
+<section class="cta">
+  <div class="cta-inner">
+    <div class="cta-left">
+      <div class="label">08 / Talk to us</div>
+      <h2>You've read enough.<br>Send the <span class="accent">brief.</span></h2>
+    </div>
+    <div class="cta-right">
+      <p>Skip the discovery call. Skip the credentials deck. Tell us what you're trying to ship — we'll reply within twenty-four hours, every time.</p>
+      <a href="/#contact" class="cta-button">
+        Send a brief
+        <span class="arrow">→</span>
+      </a>
+      <div class="cta-direct">
+        <span><a href="mailto:hello@knoativ.com">hello@knoativ.com</a></span>
+        <span>Karachi · GMT+5</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================
+     FOOTER
+     ===================================================== -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-mark">
+      <svg viewBox="0 0 244 244" xmlns="http://www.w3.org/2000/svg">
+        <path d="M78 160H0V79.9002L77.7193 0L78 160Z" fill="#F5F2EC"/>
+        <path d="M78 162H0V241.591L77.7193 242L78 162Z" fill="#F5F2EC"/>
+        <path d="M118.405 80L78 160H158.87L200 80H118.405Z" fill="#F5F2EC"/>
+        <path d="M158.675 162H78L118.732 242H200L158.675 162Z" fill="#F5F2EC"/>
+        <path d="M244 159.92L203.164 80L162 160H194.251L203.045 142.913L211.759 159.92H244Z" fill="#5B3DFF"/>
+        <path d="M211.759 162.03L203.045 179.364L194.251 162H162L203.164 242L244 162.172L211.759 162.03Z" fill="#5B3DFF"/>
+      </svg>
+      <div class="name">KNOATIV</div>
+      <div class="tag">— Built, Not Pitched.</div>
+    </div>
+
+    <div class="footer-col">
+      <h5>Acts</h5>
+      <ul>
+        <li><a href="/#acts">Kreate</a></li>
+        <li><a href="/#acts">Kollaborate</a></li>
+        <li><a href="/#acts">Kustomize</a></li>
+        <li><a href="/#acts">Konclude</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="/#manifesto">Manifesto</a></li>
+        <li><a href="/#approach">Approach</a></li>
+        <li><a href="/#work">Recent Work</a></li>
+        <li><a href="/about">About</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h5>Channels</h5>
+      <ul>
+        <li><a href="mailto:hello@knoativ.com">hello@knoativ.com</a></li>
+        <li><a href="#">LinkedIn</a></li>
+        <li><a href="#">Brand Guidelines</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bigmark">KNOATIV<span class="accent">.</span></div>
+
+  <div class="footer-bottom">
+    <div class="footer-meta">
+      <div class="footer-meta-item"><span class="live"></span><span id="footer-time">SYSTEMS LIVE · KARACHI 14:32:47</span></div>
+      <div class="footer-meta-item">VERSION 26.05 · Q2 2026</div>
+    </div>
+    <div class="footer-meta">
+      <div class="footer-meta-item">© 2026 KNOATIV</div>
+      <div class="footer-meta-item">All rights reserved</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// =============================================================================
+// CUSTOM CURSOR — same behavior as the homepage
+// =============================================================================
+const cursor = document.getElementById('cursor');
+const cursorTrail = document.getElementById('cursor-trail');
+
+let mouseX = 0, mouseY = 0;
+let trailX = 0, trailY = 0;
+
+document.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+  cursor.style.left = mouseX + 'px';
+  cursor.style.top = mouseY + 'px';
+});
+
+function animateTrail() {
+  trailX += (mouseX - trailX) * 0.18;
+  trailY += (mouseY - trailY) * 0.18;
+  cursorTrail.style.left = trailX + 'px';
+  cursorTrail.style.top = trailY + 'px';
+  requestAnimationFrame(animateTrail);
+}
+animateTrail();
+
+// Hover state on interactive elements
+const hoverEls = document.querySelectorAll('a, button, .geo-row, .proof-card, .commit-row, .signature-card');
+hoverEls.forEach(el => {
+  el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+  el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+});
+
+// =============================================================================
+// LIVE KARACHI CLOCK
+// =============================================================================
+function updateClock() {
+  const now = new Date();
+  const utcHours = now.getUTCHours();
+  const utcMinutes = now.getUTCMinutes();
+  const utcSeconds = now.getUTCSeconds();
+
+  const karachi = new Date();
+  karachi.setUTCHours(utcHours + 5);
+  karachi.setUTCMinutes(utcMinutes);
+  karachi.setUTCSeconds(utcSeconds);
+
+  const h = String(karachi.getUTCHours() % 24).padStart(2, '0');
+  const m = String(utcMinutes).padStart(2, '0');
+  const s = String(utcSeconds).padStart(2, '0');
+
+  const navStatus = document.getElementById('nav-status-text');
+  const footerTime = document.getElementById('footer-time');
+
+  if (navStatus) navStatus.textContent = `KARACHI ${h}:${m} PKT`;
+  if (footerTime) footerTime.textContent = `SYSTEMS LIVE · KARACHI ${h}:${m}:${s}`;
+}
+updateClock();
+setInterval(updateClock, 1000);
+
+// =============================================================================
+// SCROLL-AWARE NAV
+// =============================================================================
+const nav = document.querySelector('.nav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 80) {
+    nav.classList.add('scrolled');
+  } else {
+    nav.classList.remove('scrolled');
+  }
+}, { passive: true });
+
+// =============================================================================
+// SCROLL-TRIGGERED REVEALS — staggered intersection observer
+// =============================================================================
+const revealEls = document.querySelectorAll('.scale-cell, .commit-row, .geo-row, .proof-card, .ledger-row, .origin-right p');
+revealEls.forEach((el, i) => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(32px)';
+  el.style.transition = `opacity 1s var(--ease-expo) ${(i % 6) * 0.06}s, transform 1s var(--ease-expo) ${(i % 6) * 0.06}s`;
+});
+
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+revealEls.forEach(el => revealObserver.observe(el));
+
+// Origin section — trigger the strike-through animation when in view
+const originSection = document.querySelector('.origin');
+if (originSection) {
+  const originObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        originSection.classList.add('in-view');
+        originObs.unobserve(originSection);
+      }
+    });
+  }, { threshold: 0.3 });
+  originObs.observe(originSection);
+}
+
+// =============================================================================
+// MAGNETIC HOVER ON CTA
+// =============================================================================
+document.querySelectorAll('.cta-button, .nav-cta').forEach(btn => {
+  btn.addEventListener('mousemove', (e) => {
+    const rect = btn.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    btn.style.transform = `translate(${x * 0.15}px, ${y * 0.25}px)`;
+    btn.style.transition = 'transform 100ms ease-out';
+  });
+  btn.addEventListener('mouseleave', () => {
+    btn.style.transform = 'translate(0, 0)';
+    btn.style.transition = 'transform 400ms cubic-bezier(0.16, 1, 0.3, 1)';
+  });
+});
+</script>
+
+</body>
+</html>
